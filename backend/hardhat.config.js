@@ -10,5 +10,3 @@ module.exports = {
     },
   },
 };
-
-// https://rinkeby.rarible.com/token/0xd43c644Ce521Ca1b934288C51aA285e20f01364D:0
