@@ -8,21 +8,49 @@ import "hardhat/console.sol";
 import {Base64} from "./libraries/Base64.sol";
 
 contract NFTeddy is ERC721URIStorage {
-    mapping(address=>bool) owns;
+    event newNFTeddy(address sender, uint256 tokenId);
+    mapping(address => bool) owns;
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    /*
     string baseSvg =
         "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='black' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
 
-    string[] layers1 = ["Horse", "Mouse","Cup", "Spinner","YOLO", "Table", "Love"];
-    string[] layers2 = ["Conditioner", "White","Jar", "Bee", "Couple", "Cat", "Back"];
-    string[] layers3 = ["Tree", "House","Banana", "Poster", "Window", "Reject", "Tracker"];
+    string[] layers1 = [
+        "Horse",
+        "Mouse",
+        "Cup",
+        "Spinner",
+        "YOLO",
+        "Table",
+        "Love"
+    ];
+    string[] layers2 = [
+        "Conditioner",
+        "White",
+        "Jar",
+        "Bee",
+        "Couple",
+        "Cat",
+        "Back"
+    ];
+    string[] layers3 = [
+        "Tree",
+        "House",
+        "Banana",
+        "Poster",
+        "Window",
+        "Reject",
+        "Tracker"
+    ];
+    */
 
     constructor() ERC721("SquareNFT", "Square") {
         console.log("This is an NFTeddy");
     }
 
+    /*
     function pickRandomFirstLayer(uint256 tokenId)
         public
         view
@@ -62,12 +90,13 @@ contract NFTeddy is ERC721URIStorage {
     function random(string memory input) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
     }
-
+    */
+    
     function makeAnNFTeddy() public {
-
         //require(owns[msg.sender]==false , "Only one nfTeddy per user");
         uint256 newItemId = _tokenIds.current();
 
+        /*
         string memory first = pickRandomFirstLayer(newItemId);
         string memory second = pickRandomSecondLayer(newItemId);
         string memory third = pickRandomThirdLayer(newItemId);
@@ -79,7 +108,9 @@ contract NFTeddy is ERC721URIStorage {
         string memory finalSvg = string(
             abi.encodePacked(baseSvg, combinedWord, "</text></svg>")
         );
+        */
 
+        /*
         string memory json = Base64.encode(
             bytes(
                 string(
@@ -93,7 +124,9 @@ contract NFTeddy is ERC721URIStorage {
                 )
             )
         );
+        */
 
+        /*
         string memory finalTokenUri = string(
             abi.encodePacked("data:application/json;base64,", json)
         );
@@ -109,9 +142,10 @@ contract NFTeddy is ERC721URIStorage {
         );
         console.log("--------------------\n");
 
+        */
         _safeMint(msg.sender, newItemId);
 
-        _setTokenURI(newItemId, finalTokenUri);
+        _setTokenURI(newItemId, "ipfs://QmbJMnaLQpR94HrQ6EzehSPV3WpsCUKQN7A4JMzabDUxz7");
 
         console.log(
             "An NFT with id %s has been minted to",
@@ -120,6 +154,7 @@ contract NFTeddy is ERC721URIStorage {
         );
 
         _tokenIds.increment();
-        owns[msg.sender]=true;
+        owns[msg.sender] = true;
+        emit newNFTeddy(msg.sender, newItemId);
     }
 }
