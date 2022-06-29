@@ -1,1 +1,1 @@
-# Sample NFT project
+# Teddy bear nft
